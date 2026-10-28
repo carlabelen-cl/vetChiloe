@@ -5,25 +5,25 @@ import hospitalizacionesRoutes from './src/routes/hospitalizaciones.routes.js';
 
 const app = express();
 
-// Puerto asignado por Render o 3001 para local
-const PORT = process.env.PORT || 3001;
+// asignamos el puerto inyectado por el entorno de render o respaldamos en 3001 para entorno local c:
+const puerto_servidor = process.env.PORT || 3001;
 
-// Configuración de CORS y parseo de JSON
+// configuracion de cors y parseo de json
 app.use(cors());
 app.use(express.json());
 
-// Ruta base para probar la salud de la API directamente en el navegador
-app.get('/', (req, res) => {
-  res.json({ mensaje: 'API de VetChiloé funcionando correctamente c:' });
+// ruta base para probar la salud de la api directamente en el navegador
+app.get('/', (peticion_cliente, respuesta_servidor) => {
+  respuesta_servidor.json({ mensaje: 'API de VetChiloé funcionando correctamente c:' });
 });
 
-// Rutas de la aplicación
+// rutas principales de la aplicacion
 app.use('/api/pacientes', pacientesRoutes);
 app.use('/api/hospitalizaciones', hospitalizacionesRoutes);
 
-// Escuchar en 0.0.0.0 es obligatorio para que Render exponga la app públicamente
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Backend de VetChiloé corriendo en el puerto ${PORT}`);
+// escuchar en 0.0.0.0 permite a render detectar e intervenir el puerto asignado correctamente :D
+app.listen(puerto_servidor, '0.0.0.0', () => {
+  console.log(`Backend de VetChiloé corriendo en el puerto ${puerto_servidor}`);
 });
 
 export default app;
